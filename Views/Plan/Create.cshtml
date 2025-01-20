@@ -1,0 +1,24 @@
+﻿<form asp-action="Create" method="post">
+    <div class="mb-3">
+        <label for="Title" class="form-label">Plan Name</label>
+        <input type="text" id="Title" name="Title" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label for="Place" class="form-label">Place</label>
+        <input type="text" id="Place" name="Place" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label for="PlanDate" class="form-label">Date</label>
+        <input type="date" id="PlanDate" name="PlanDate" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label for="Friends" class="form-label">Friends with You</label>
+        <select id="Friends" name="selectedFriends" class="form-select" multiple>
+            @foreach (var friend in ViewBag.Friends)
+            {
+                <option value="@friend.Value">@friend.Text</option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Create Plan</button>
+</form>

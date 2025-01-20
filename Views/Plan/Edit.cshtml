@@ -1,0 +1,28 @@
+﻿@model FriendsApp.Models.Plan
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" /> <!-- Hidden field for Plan ID -->
+
+    <div class="mb-3">
+        <label for="Title" class="form-label">Plan Name</label>
+        <input type="text" id="Title" asp-for="Title" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label for="Place" class="form-label">Place</label>
+        <input type="text" id="Place" asp-for="Place" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label for="PlanDate" class="form-label">Date</label>
+        <input type="date" id="PlanDate" asp-for="PlanDate" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label for="Friends" class="form-label">Friends with You</label>
+        <select id="Friends" name="selectedFriends" class="form-select" multiple>
+            @foreach (var friend in ViewBag.Friends)
+            {
+                <option value="@friend.Value">@friend.Text</option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Update Plan</button>
+</form>

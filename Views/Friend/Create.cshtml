@@ -1,0 +1,53 @@
+﻿@model FriendsApp.Models.Friend
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Add Friend";
+}
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card p-4 shadow-lg" style="width: 100%; max-width: 400px;">
+        <h1 class="text-center">Add a New Friend</h1>
+
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger text-center">
+                @TempData["ErrorMessage"]
+            </div>
+        }
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success text-center">
+                @TempData["SuccessMessage"]
+            </div>
+        }
+
+        <form asp-action="Create" method="post" class="mt-4">
+            <div class="mb-3">
+                <label for="Name" class="form-label">Name</label>
+                <input type="text" id="Name" asp-for="Name" class="form-control" required />
+            </div>
+            <div class="mb-3">
+                <label for="PhoneNumber" class="form-label">Phone Number</label>
+                <input type="text" id="PhoneNumber" asp-for="PhoneNumber" class="form-control" required />
+            </div>
+            <div class="mb-3">
+                <label for="Location" class="form-label">Location</label>
+                <input type="text" id="Location" asp-for="Location" class="form-control" required />
+            </div>
+            <div class="mb-3">
+                <label for="Category" class="form-label">Category</label>
+                <select id="Category" asp-for="Category" class="form-select">
+                    <option>College Friends</option>
+                    <option>Work Friends</option>
+                    <option>Best Friends</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="FirstMeetingPlace" class="form-label">Where We First Met</label>
+                <input type="text" id="FirstMeetingPlace" asp-for="FirstMeetingPlace" class="form-control" required />
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Save Friend</button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,187 @@
+﻿/* Global Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #007bff;
+    color: white;
+}
+
+    .navbar a.nav-link {
+        color: white;
+    }
+
+        .navbar a.nav-link:hover {
+            color: #ffdd57;
+        }
+/* Hero Section Styling */
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 60vh; /* Adjust height as needed */
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow around the image */
+}
+
+.hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image covers the container */
+    display: block;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+}
+
+.hero-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    color: white;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8); /* Text shadow for readability */
+}
+
+    .hero-content h1 {
+        font-size: 3rem;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .hero-content p {
+        font-size: 1.2rem;
+        margin-bottom: 30px;
+    }
+
+
+/* Features Section */
+.features-section {
+    padding: 50px 20px;
+    background: #fff;
+}
+
+    .features-section h2 {
+        font-size: 2.5em;
+        margin-bottom: 40px;
+        text-align: center;
+    }
+
+    .features-section .feature {
+        text-align: center;
+        padding: 20px;
+    }
+
+        .features-section .feature img {
+            width: 80px;
+            margin-bottom: 15px;
+        }
+
+    .features-section h4 {
+        font-size: 1.5em;
+        margin-bottom: 10px;
+    }
+
+    .features-section p {
+        font-size: 1em;
+        color: #666;
+    }
+
+/* Call-to-Action Section */
+.call-to-action-section {
+    background-color: #007bff;
+    color: white;
+    padding: 50px 20px;
+    text-align: center;
+}
+
+    .call-to-action-section h2 {
+        font-size: 2.5em;
+        margin-bottom: 20px;
+    }
+
+    .call-to-action-section p {
+        font-size: 1.2em;
+        margin-bottom: 30px;
+    }
+
+    .call-to-action-section .btn {
+        font-size: 1.2em;
+        padding: 10px 20px;
+        border-radius: 5px;
+        background-color: #ffdd57;
+        color: #333;
+        border: none;
+    }
+
+        .call-to-action-section .btn:hover {
+            background-color: #ffcc00;
+        }
+
+/* Footer */
+footer {
+    background-color: #f8f9fa;
+    padding: 20px;
+    text-align: center;
+    color: #6c757d;
+    font-size: 0.9em;
+}
+.alert {
+    margin-top: 10px;
+}
+
+.chart-container {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+}
+
+.text-primary {
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+/* Hero Section */
+.hero-section {
+    position: relative;
+    color: white;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+}
+
+.hero-overlay {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+/* Features Section */
+.features-section h4 {
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.features-section p {
+    color: #555;
+}
+
+/* Call to Action Section */
+.call-to-action-section h2 {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.call-to-action-section p {
+    font-size: 1.2rem;
+}

@@ -1,0 +1,63 @@
+﻿@model FriendsApp.Models.Meeting
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Create Meeting";
+}
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card p-4 shadow-lg" style="width: 100%; max-width: 400px;">
+        <h1 class="text-center">Create Meeting</h1>
+
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger text-center">
+                @TempData["ErrorMessage"]
+            </div>
+        }
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success text-center">
+                @TempData["SuccessMessage"]
+            </div>
+        }
+
+        <form asp-action="Create" method="post" class="p-4 shadow rounded">
+            <div class="mb-3">
+                <label for="FriendId" class="form-label">Select a Friend</label>
+                <select id="FriendId" asp-for="FriendId" class="form-select" required>
+                    <option value="" disabled selected>Select a friend</option>
+                    @if (ViewBag.Friends != null && ((List<SelectListItem>)ViewBag.Friends).Count > 0)
+                    {
+                        foreach (var friend in (List<SelectListItem>)ViewBag.Friends)
+                        {
+                            <option value="@friend.Value">@friend.Text</option>
+                        }
+                    }
+                    else
+                    {
+                        <option value="" disabled>No friends available</option>
+                    }
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="MeetingDate" class="form-label">Meeting Date</label>
+                <input type="date" id="MeetingDate" asp-for="MeetingDate" class="form-control" required />
+            </div>
+
+            <div class="mb-3">
+                <label for="MeetingTime" class="form-label">Meeting Time</label>
+                <input type="time" id="MeetingTime" asp-for="MeetingTime" class="form-control" required />
+            </div>
+
+            <div class="mb-3">
+                <label for="Place" class="form-label">Meeting Place</label>
+                <input type="text" id="Place" asp-for="Place" class="form-control" placeholder="Enter the meeting place" required />
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Create Meeting</button>
+        </form>
+
+    </div>
+</div>

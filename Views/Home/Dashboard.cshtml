@@ -1,0 +1,210 @@
+﻿@using Newtonsoft.Json
+@model DashboardViewModel
+
+<h1 class="text-center my-4">Your Dashboard</h1>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div id="successMessage" class="alert alert-success text-center">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<script>
+    // Hide the success message after 3 seconds
+    setTimeout(() => {
+        document.getElementById('successMessage')?.classList.add('d-none');
+    }, 3000);
+</script>
+
+<div class="container">
+    <div class="row">
+        <!-- Left Column -->
+        <div class="col-md-6">
+            <!-- Plans Section -->
+            <div class="mb-5">
+                <h2 class="text-secondary"><i class="bi bi-clipboard"></i> Your Plans</h2>
+                <a asp-action="Create" asp-controller="Plan" class="btn btn-secondary mb-3">
+                    <i class="bi bi-plus-lg"></i> Add Plan
+                </a>
+                @if (!Model.Plans.Any())
+                {
+                    <div class="alert alert-secondary text-center" role="alert">
+                        No plans created yet. Click "Add Plan" to get started!
+                    </div>
+                }
+                else
+                {
+                    <div class="row">
+                        @foreach (var plan in Model.Plans)
+                        {
+                            <div class="col-12 mb-4">
+                                <div class="card shadow-lg">
+                                    <div class="card-body">
+                                        <h5 class="card-title">@plan.Title</h5>
+                                        <p class="card-text">
+                                            <strong>Place:</strong> @plan.Place<br />
+                                            <strong>Date:</strong> @plan.PlanDate.ToShortDateString()<br />
+                                            <strong>With:</strong> @string.Join(", ", plan.Friends.Select(f => f.Name))
+                                        </p>
+                                        <div class="d-flex justify-content-end">
+                                            <a asp-action="Edit" asp-controller="Plan" asp-route-id="@plan.Id" class="btn btn-warning btn-sm me-2">
+                                                <i class="bi bi-pencil"></i> Edit
+                                            </a>
+                                            <form asp-action="Delete" asp-controller="Plan" asp-route-id="@plan.Id" method="post" onsubmit="return confirm('Are you sure you want to delete this plan?');" style="display:inline;">
+                                                <button type="submit" class="btn btn-danger btn-sm">
+                                                    <i class="bi bi-trash"></i> Delete
+                                                </button>
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+
+            <!-- Chart Section -->
+            <div>
+                <h2 class="text-primary mb-4">Friend Categories Distribution</h2>
+                <div class="chart-container p-3" style="position: relative; height: 50vh; background-color: #f9f9f9; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                    <canvas id="friendCategoryChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="col-md-6">
+            <!-- Meetings Section -->
+            <div class="mb-5">
+                <h2 class="text-primary"><i class="bi bi-calendar2-event"></i> Today's Meetings</h2>
+                <a asp-action="Create" asp-controller="Meeting" class="btn btn-primary mb-3">
+                    <i class="bi bi-plus-lg"></i> Add Meeting
+                </a>
+                @if (!Model.Meetings.Any(m => m.MeetingDate == DateTime.Today))
+                {
+                    <div class="alert alert-info text-center" role="alert">
+                        No meetings scheduled for today. Click "Add Meeting" to schedule one!
+                    </div>
+                }
+                else
+                {
+                    <div class="row">
+                        @foreach (var meeting in Model.Meetings.Where(m => m.MeetingDate == DateTime.Today))
+                        {
+                            <div class="col-12 mb-4">
+                                <div class="card shadow-lg">
+                                    <div class="card-body position-relative">
+                                        <a href="tel:@meeting.Friend.PhoneNumber" class="btn btn-success rounded-circle position-absolute" style="top: -25px; right: -25px; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                                            <i class="bi bi-telephone-fill" style="font-size: 24px;"></i>
+                                        </a>
+                                        <h5 class="card-title text-primary">@meeting.Friend.Name</h5>
+                                        <p class="card-text">
+                                            <strong>Date:</strong> @meeting.MeetingDate.ToShortDateString()<br />
+                                            <strong>Time:</strong> @meeting.MeetingTime<br />
+                                            <strong>Place:</strong> @meeting.Place
+                                        </p>
+                                        <div class="d-flex justify-content-end">
+                                            <a asp-action="Edit" asp-controller="Meeting" asp-route-id="@meeting.Id" class="btn btn-warning btn-sm me-2">
+                                                <i class="bi bi-pencil"></i> Edit
+                                            </a>
+                                            <form asp-action="Delete" asp-controller="Meeting" asp-route-id="@meeting.Id" method="post" onsubmit="return confirm('Are you sure you want to delete this meeting?');" style="display:inline;">
+                                                <button type="submit" class="btn btn-danger btn-sm">
+                                                    <i class="bi bi-trash"></i> Delete
+                                                </button>
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+
+            <!-- Friends Section -->
+            <div>
+                <h2 class="text-success"><i class="bi bi-people"></i> Friends by Category</h2>
+                <a asp-action="Create" asp-controller="Friend" class="btn btn-success mb-3">
+                    <i class="bi bi-plus-lg"></i> Add Friend
+                </a>
+                @if (!Model.Friends.Any())
+                {
+                    <div class="alert alert-warning text-center" role="alert">
+                        No friends added yet. Click "Add Friend" to get started!
+                    </div>
+                }
+                else
+                {
+                    @foreach (var category in Model.Friends.GroupBy(f => f.Category).OrderBy(g => g.Key))
+                    {
+                        <h5 class="mt-3 text-success"><i class="bi bi-folder2"></i> @category.Key</h5>
+                        <ul class="list-group mb-3">
+                            @foreach (var friend in category)
+                            {
+                                <li class="list-group-item">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h6 class="mb-1">@friend.Name</h6>
+                                            <p class="mb-1">
+                                                <strong>Location:</strong> @friend.Location<br />
+                                                <strong>Where We Met:</strong> @friend.FirstMeetingPlace
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <a href="tel:@friend.PhoneNumber" class="btn btn-outline-success btn-sm mb-1">
+                                                <i class="bi bi-telephone"></i> Call
+                                            </a>
+                                            <a asp-action="Edit" asp-controller="Friend" asp-route-id="@friend.Id" class="btn btn-warning btn-sm mb-1">
+                                                <i class="bi bi-pencil"></i> Edit
+                                            </a>
+                                            <a asp-action="Delete" asp-controller="Friend" asp-route-id="@friend.Id"
+                                               class="btn btn-danger btn-sm"
+                                               onclick="return confirm('Are you sure you want to delete this friend?');">
+                                                <i class="bi bi-trash"></i> Delete
+                                            </a>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const categories = @Html.Raw(Json.Serialize(Model.FriendCategories.Keys));
+    const counts = @Html.Raw(Json.Serialize(Model.FriendCategories.Values));
+
+    const ctx = document.getElementById('friendCategoryChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: categories,
+            datasets: [{
+                data: counts,
+                backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'],
+                borderWidth: 2,
+                borderColor: '#ffffff',
+                hoverOffset: 8
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: { font: { size: 14 }, color: '#333' }
+                }
+            }
+        }
+    });
+</script>
