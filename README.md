@@ -62,4 +62,5 @@ F.R.I.E.N.D.S is a web and mobile application built using **ASP.NET Core MVC**, 
 
 ---
 
-Made with ❤️ by [ISM]
+Made with ❤️ by ISM 
+2025
