@@ -56,7 +56,7 @@ F.R.I.E.N.D.S is a web and mobile application built using **ASP.NET Core MVC**, 
 ![Screenshot 2025-01-19 172056](https://github.com/user-attachments/assets/e09a72ab-a889-43ce-a98f-56bc3b9fb526)
 ![Screenshot 2025-01-19 172115](https://github.com/user-attachments/assets/fe9c5eff-850f-45b0-9041-23705bd5d1ac)
 ![Screenshot 2025-01-19 172133](https://github.com/user-attachments/assets/8dc65b33-5231-47d5-a587-ff3af2e210f3)
-![Screenshot 2025-01-19 172316](https://github.com/user-attachments/assets/5693d0e9-9df2-47f1-81c8-352d87bc04a8)
+![Screenshot 2025-01-19 172246](https://github.com/user-attachments/assets/fd25c339-73f6-46a5-9d77-db295a7980bf)
 ![Screenshot 2025-01-19 172039](https://github.com/user-attachments/assets/13512b60-9047-4073-b78c-b6bfc4191655)
 
 
